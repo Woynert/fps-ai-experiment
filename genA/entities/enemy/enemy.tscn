@@ -1,0 +1,195 @@
+[gd_scene load_steps=20 format=3 uid="uid://bstnibwe14mt0"]
+
+[ext_resource type="Script" path="res://genA/entities/enemy/ia_physic_manager.gd" id="1_12sgw"]
+[ext_resource type="Script" path="res://genA/entities/enemy/ia_state_manager.gd" id="1_sjye0"]
+[ext_resource type="Script" path="res://genA/entities/enemy/ia_common.gd" id="2_gj2ws"]
+[ext_resource type="Script" path="res://genA/entities/enemy/ia_attack_manager.gd" id="4_61blw"]
+[ext_resource type="Script" path="res://genA/entities/enemy/ia_logic_manager.gd" id="4_uqjqf"]
+[ext_resource type="Script" path="res://genA/entities/enemy/ia_spotter_manager.gd" id="5_nfs2d"]
+[ext_resource type="Script" path="res://genA/entities/enemy/senses/ia_senses_manager.gd" id="6_d7unm"]
+[ext_resource type="Script" path="res://genA/entities/enemy/senses/ia_sense_hear.gd" id="7_l0n75"]
+[ext_resource type="Script" path="res://genA/entities/enemy/senses/ia_sense_vision.gd" id="7_lntsn"]
+[ext_resource type="Script" path="res://genA/entities/enemy/label_info.gd" id="9_py7me"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_f6xya"]
+radius = 0.15
+height = 0.3
+radial_segments = 8
+rings = 8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0g6oy"]
+albedo_color = Color(0.364706, 0.145098, 0.137255, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_s56kv"]
+material = SubResource("StandardMaterial3D_0g6oy")
+size = Vector3(0.205, 0.105, 1.105)
+
+[sub_resource type="PrismMesh" id="PrismMesh_1hwds"]
+material = SubResource("StandardMaterial3D_0g6oy")
+size = Vector3(1, 1, 0.14)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_j0fd3"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vw6c0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_couq2"]
+albedo_color = Color(0.152941, 0.137255, 0.552941, 1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_36ce3"]
+material = SubResource("StandardMaterial3D_couq2")
+size = Vector3(1, 1, 0.14)
+
+[sub_resource type="PrismMesh" id="PrismMesh_af5wm"]
+material = SubResource("StandardMaterial3D_0g6oy")
+size = Vector3(1, 1, 0.14)
+
+[node name="Enemy" type="Node3D"]
+script = ExtResource("2_gj2ws")
+_path_state_manager = NodePath("IAStateManager")
+_path_physic_manager = NodePath("IAPhysicManager")
+_path_senses_manager = NodePath("IASensesManager")
+_path_logic_manager = NodePath("IALogicManager")
+_path_attack_manager = NodePath("IAAttackManager")
+_path_sense_vision = NodePath("IASensesManager/IASenseVision")
+
+[node name="IAStateManager" type="Node3D" parent="."]
+script = ExtResource("1_sjye0")
+
+[node name="IALogicManager" type="Node" parent="."]
+script = ExtResource("4_uqjqf")
+
+[node name="IAAttackManager" type="Node" parent="."]
+script = ExtResource("4_61blw")
+
+[node name="IAPhysicManager" type="CharacterBody3D" parent="."]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_12sgw")
+
+[node name="EyesPosition" type="Marker3D" parent="IAPhysicManager"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.64709, 0)
+
+[node name="IASpotterManager" type="Node3D" parent="IAPhysicManager"]
+script = ExtResource("5_nfs2d")
+
+[node name="Ray" type="RayCast3D" parent="IAPhysicManager/IASpotterManager"]
+
+[node name="RayDebug" type="RayCast3D" parent="IAPhysicManager/IASpotterManager"]
+
+[node name="visualRotation1" type="Node3D" parent="IAPhysicManager"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.59324, 0)
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="IAPhysicManager/visualRotation1"]
+mesh = SubResource("SphereMesh_f6xya")
+skeleton = NodePath("../../..")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="IAPhysicManager/visualRotation1"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -2.20972e-08, 0, 0.580383)
+mesh = SubResource("BoxMesh_s56kv")
+skeleton = NodePath("../../..")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="IAPhysicManager/visualRotation1"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.502752, -2.38419e-07, 0.0142605)
+mesh = SubResource("BoxMesh_s56kv")
+skeleton = NodePath("../../..")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="IAPhysicManager/visualRotation1"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.540883, -2.38419e-07, 0.00420882)
+mesh = SubResource("BoxMesh_s56kv")
+skeleton = NodePath("../../..")
+
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="IAPhysicManager/visualRotation1"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.49836, -2.38419e-07, 0.00420873)
+mesh = SubResource("BoxMesh_s56kv")
+skeleton = NodePath("../../..")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="IAPhysicManager/visualRotation1"]
+transform = Transform3D(-0.779844, 6.81761e-08, 2.98008e-15, 0, -3.40881e-08, 0.779844, 6.81761e-08, 0.779844, 3.40881e-08, 2.20972e-08, 0, 1.08591)
+mesh = SubResource("PrismMesh_1hwds")
+skeleton = NodePath("../../..")
+
+[node name="visualRotation2" type="Node3D" parent="IAPhysicManager"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.59324, 0)
+visible = false
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="IAPhysicManager/visualRotation2"]
+mesh = SubResource("SphereMesh_f6xya")
+skeleton = NodePath("../../..")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="IAPhysicManager/visualRotation2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.545466)
+mesh = SubResource("BoxMesh_s56kv")
+skeleton = NodePath("../../..")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="IAPhysicManager/visualRotation2"]
+transform = Transform3D(0.779844, 0, 0, 0, -3.40881e-08, 0.779844, 0, -0.779844, -3.40881e-08, 0, 0, -1.05099)
+mesh = SubResource("PrismMesh_1hwds")
+skeleton = NodePath("../../..")
+
+[node name="visualPlaceholder" type="Node3D" parent="IAPhysicManager"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="IAPhysicManager/visualPlaceholder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01499, 0)
+mesh = SubResource("CylinderMesh_j0fd3")
+skeleton = NodePath("../../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="IAPhysicManager"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01499, 0)
+shape = SubResource("CapsuleShape3D_vw6c0")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="IAPhysicManager"]
+
+[node name="labelInfo" type="Label3D" parent="IAPhysicManager"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.61783, 0)
+visible = false
+pixel_size = 0.001
+billboard = 1
+double_sided = false
+fixed_size = true
+texture_filter = 0
+text = "lfjdlkafjldsf: 123
+da;skdlas;ld: dlpaskdl"
+font_size = 11
+outline_size = 4
+script = ExtResource("9_py7me")
+
+[node name="IASensesManager" type="Node" parent="."]
+script = ExtResource("6_d7unm")
+
+[node name="IASenseHear" type="Node" parent="IASensesManager"]
+script = ExtResource("7_l0n75")
+
+[node name="IASenseVision" type="Node" parent="IASensesManager"]
+script = ExtResource("7_lntsn")
+
+[node name="Ray" type="RayCast3D" parent="IASensesManager/IASenseVision"]
+
+[node name="mup" type="Node3D" parent="."]
+transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, 0, 0, 0)
+rotation_edit_mode = 1
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="mup"]
+transform = Transform3D(2.92335, 0, 0, 0, -1.27784e-07, 2.92335, 0, -2.92335, -1.27784e-07, 0, 0, -1.4501)
+mesh = SubResource("PrismMesh_1hwds")
+skeleton = NodePath("../..")
+
+[node name="enemy_position" type="Node3D" parent="."]
+transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, 0, 0, 0)
+rotation_edit_mode = 1
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="enemy_position"]
+transform = Transform3D(0.976916, 3.83351e-07, 3.83351e-07, -1.28107e-07, 2.92335, 2.98428e-13, -1.28107e-07, -3.48698e-13, 2.92335, 0, 1.43227, 0)
+mesh = SubResource("PrismMesh_36ce3")
+skeleton = NodePath("../..")
+
+[node name="target_position" type="Node3D" parent="."]
+transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, 0, 0, 0)
+rotation_edit_mode = 1
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="target_position"]
+transform = Transform3D(0.976916, 3.83351e-07, 3.83351e-07, -1.28107e-07, 2.92335, 2.98428e-13, -1.28107e-07, -3.48698e-13, 2.92335, 0, 1.43227, 0)
+mesh = SubResource("PrismMesh_af5wm")
+skeleton = NodePath("../..")

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dikccotmny63p"]
+
+[ext_resource type="Script" path="res://genA/entities/sound_emitter.gd" id="1_o462k"]
+
+[sub_resource type="TorusMesh" id="TorusMesh_2aov1"]
+
+[node name="SoundEmitter" type="Node3D"]
+script = ExtResource("1_o462k")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("TorusMesh_2aov1")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.001

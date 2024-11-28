@@ -1,0 +1,50 @@
+[gd_scene load_steps=9 format=3 uid="uid://b382daegphnkx"]
+
+[ext_resource type="Script" path="res://genA/entities/playerB.gd" id="1_vl5ty"]
+[ext_resource type="Script" path="res://genA/entities/PlayerB_camera.gd" id="2_auoxg"]
+[ext_resource type="Script" path="res://genA/entities/entity_detectable.gd" id="2_mbsbu"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vw6c0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mcb6b"]
+albedo_color = Color(1, 0.129412, 1, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ucti5"]
+material = SubResource("StandardMaterial3D_mcb6b")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0g6oy"]
+albedo_color = Color(0.364706, 0.145098, 0.137255, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_s56kv"]
+material = SubResource("StandardMaterial3D_0g6oy")
+size = Vector3(0.205, 0.105, 1.105)
+
+[node name="PlayerB" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 3
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+script = ExtResource("1_vl5ty")
+
+[node name="EyesPosition" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.64709, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.52541, 0)
+current = true
+script = ExtResource("2_auoxg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01499, 0)
+shape = SubResource("CapsuleShape3D_vw6c0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01499, 0)
+mesh = SubResource("CylinderMesh_ucti5")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.01311, -0.340561)
+mesh = SubResource("BoxMesh_s56kv")
+
+[node name="EntityDetectable" type="Node" parent="."]
+script = ExtResource("2_mbsbu")

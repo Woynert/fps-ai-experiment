@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://c7a5v2klxs0gk"]
+
+[ext_resource type="Script" path="res://genA/entities/peloton_generator.gd" id="1_5ay5q"]
+[ext_resource type="Script" path="res://genA/entities/enemy/peloton/peloton.gd" id="2_6jef4"]
+
+[sub_resource type="TorusMesh" id="TorusMesh_bv02t"]
+inner_radius = 0.115
+
+[node name="PelotonGenerator" type="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.4265, 0.167089, 9.57624)
+mesh = SubResource("TorusMesh_bv02t")
+script = ExtResource("1_5ay5q")
+
+[node name="Peloton" type="Node3D" parent="."]
+script = ExtResource("2_6jef4")
+
+[node name="points" type="Node3D" parent="Peloton"]
+
+[node name="entities" type="Node3D" parent="Peloton"]

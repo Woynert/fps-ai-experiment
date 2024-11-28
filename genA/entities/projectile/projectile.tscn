@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://pilasqrvdkvr"]
+
+[ext_resource type="Script" path="res://genA/entities/projectile/debug_projectile.gd" id="1_0spse"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sx0he"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_83ale"]
+albedo_color = Color(0, 1, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_k6es5"]
+material = SubResource("StandardMaterial3D_83ale")
+radius = 0.25
+height = 0.5
+
+[node name="Projectile" type="ShapeCast3D"]
+shape = SubResource("BoxShape3D_sx0he")
+target_position = Vector3(0, 0, 0)
+script = ExtResource("1_0spse")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+autostart = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_k6es5")
